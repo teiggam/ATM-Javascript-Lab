@@ -58,8 +58,8 @@ class ATM{
 //}}
 
 
-//this way of writing the method at least lets me log into any account immediately... but it still makes me exit extra times
-//depending on the length of the array.  This could probably be configured further, but it's late....
+//this way of writing the method at least lets me log into any account immediately, and doesn't iterate and answer for each index.
+//And I fixed the double exit issue...
 
         else{
 
@@ -67,7 +67,7 @@ class ATM{
                 let passRequest = this.accounts.find((account)=>(account.password === login.password));
                 if(userRequest === passRequest){
                     this.activeUser = userRequest;
-                    console.log(`You have successfully logged in: ${this.activeUser.name}.`) 
+                    console.log(`You have successfully logged in: ${this.activeUser.name}`) 
                 }
                 else{ 
                     console.log("The name and password do not match.  Please try again.");
@@ -80,7 +80,6 @@ class ATM{
         let user = this.activeUser.name;
         this.activeUser = undefined;
         console.log(`${user} has successfully logged out.`)
-        this.getFirstIntent();
     }
     
     checkBalance(){
@@ -132,7 +131,6 @@ class ATM{
             if(intention ==="1")
                 {
                     this.login();
-                    console.log("You are now logged in.");
                     this.getSecondIntent();
                 
                 }
@@ -140,16 +138,15 @@ class ATM{
                      this.register();
                      this.getFirstIntent();
                 }
-            else{
-                    console.log("Thanks for banking with GC ATM!");
-                    return;
+            else if(intention === "3"){
 
-                } 
+                console.log("Thanks for banking with GC ATM!");
+                return;
             }
-
+        }
     }
     getSecondIntent(){
-        let action = prompt("What would you like to do?  Check balance(1), deposit(2), withdrawl(3) or logout(4).  Please enter the corresponding number.")
+        let action = prompt("What would you like to do?  Check balance(1), deposit(2), withdraw(3) or logout(4).  Please enter the corresponding number.")
         
         if(action === "1"){
                 this.checkBalance();
