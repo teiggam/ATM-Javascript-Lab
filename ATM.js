@@ -32,32 +32,50 @@ class ATM{
             console.log("User already logged in, please logout.")
             this.logout(this.activeUser);
         }
-        else{
+ //       else{
             //This for loop isn't working how I want it to... it loops and answers for each index
             //so if my user isn't at index[0] it will not log in.  Then, when I "exit" it will continue
             //with the loop to index[1] and continue...
             //OR, if my user is at 0, I can do all the functions, but when I exit, it then loops back to 
             //index[1].
+       
+ //           for(let i = 0; i <this.accounts.length; i++){
+ //               
+//                if ( this.accounts[i].name === login.name && this.accounts[i].password === login.password){
+ //                   
+ //                   this.activeUser = this.accounts[i];
+ //                   console.log(`You have successfully logged in: ${this.accounts[i].name}.`)
+ //               }
+ //               else if(this.accounts[i].name === login.name && this.accounts[i].password !== login.password)
+ //               {
+ //                   console.log(`${login.name}, your password is incorrect, please try again.`)
+ //                   this.login();
+ //               }
+ //               else{
+ //                   console.log("The name and password do not match.  Please try again.");
+ //                   this.getFirstIntent();
+ //               }
+//}}
 
-            for(let i = 0; i <this.accounts.length; i++){
-                
-                if ( this.accounts[i].name === login.name && this.accounts[i].password === login.password){
-                    
-                    this.activeUser = this.accounts[i];
-                    console.log(`You have successfully logged in: ${this.accounts[i].name}.`)
+
+//this way of writing the method at least lets me log into any account immediately... but it still makes me exit extra times
+//depending on the length of the array.  This could probably be configured further, but it's late....
+
+        else{
+
+                let userRequest = this.accounts.find((account)=>(account.name === login.name));
+                let passRequest = this.accounts.find((account)=>(account.password === login.password));
+                if(userRequest === passRequest){
+                    this.activeUser = userRequest;
+                    console.log(`You have successfully logged in: ${this.activeUser.name}.`) 
                 }
-               else if(this.accounts[i].name === login.name && this.accounts[i].password !== login.password)
-                {
-                  console.log(`${login.name}, your password is incorrect, please try again.`)
-                  this.login();
-                 }
-             else{
+                else{ 
                     console.log("The name and password do not match.  Please try again.");
                     this.getFirstIntent();
-                 }
-            }
+                }
         }
     }
+    
     logout(){
         let user = this.activeUser.name;
         this.activeUser = undefined;
@@ -172,8 +190,8 @@ class ATM{
     }
 
 let atm = new ATM;
-atm.accounts.push(new account("mag123", "pass456", "500"));
-atm.accounts.push(new account("user1", "pass2","40000"));
+atm.accounts.push(new account("mag123", "pass456", 500));
+atm.accounts.push(new account("user1", "pass2",40000));
 
 console.log("Welcome to the GC ATM");
 atm.getFirstIntent();
