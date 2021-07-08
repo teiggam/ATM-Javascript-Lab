@@ -32,42 +32,41 @@ class ATM{
             console.log("User already logged in, please logout.")
             this.logout(this.activeUser);
         }
- //       else{
-            //This for loop isn't working how I want it to... it loops and answers for each index
-            //so if my user isn't at index[0] it will not log in.  Then, when I "exit" it will continue
-            //with the loop to index[1] and continue...
-            //OR, if my user is at 0, I can do all the functions, but when I exit, it then loops back to 
-            //index[1].
-       
- //           for(let i = 0; i <this.accounts.length; i++){
- //               
-//                if ( this.accounts[i].name === login.name && this.accounts[i].password === login.password){
- //                   
- //                   this.activeUser = this.accounts[i];
- //                   console.log(`You have successfully logged in: ${this.accounts[i].name}.`)
- //               }
- //               else if(this.accounts[i].name === login.name && this.accounts[i].password !== login.password)
- //               {
- //                   console.log(`${login.name}, your password is incorrect, please try again.`)
- //                   this.login();
- //               }
- //               else{
- //                   console.log("The name and password do not match.  Please try again.");
- //                   this.getFirstIntent();
- //               }
-//}}
-
+        //This for loop isn't working how I want it to... it loops and answers for each index
+        //so if my user isn't at index[0] it will not log in.  Then, when I "exit" it will continue
+        //with the loop to index[1] and continue...
+        //OR, if my user is at 0, I can do all the functions, but when I exit, it then loops back to 
+        //index[1].      
+        //       else{
+        //           for(let i = 0; i <this.accounts.length; i++){
+        //               
+        //                if ( this.accounts[i].name === login.name && this.accounts[i].password === login.password){
+        //                   
+        //                   this.activeUser = this.accounts[i];
+        //                   console.log(`You have successfully logged in: ${this.accounts[i].name}.`)
+        //               }
+        //               else if(this.accounts[i].name === login.name && this.accounts[i].password !== login.password)
+        //               {
+        //                   console.log(`${login.name}, your password is incorrect, please try again.`)
+        //                   this.login();
+        //               }
+        //               else{
+        //                   console.log("The name and password do not match.  Please try again.");
+        //                   this.getFirstIntent();
+        //               }
+        //             }
+        //          }
 
 //this way of writing the method at least lets me log into any account immediately, and doesn't iterate and answer for each index.
-//And I fixed the double exit issue...
+//And I fixed the double exit issue...or I thought I did.
 
         else{
 
                 let userRequest = this.accounts.find((account)=>(account.name === login.name));
                 let passRequest = this.accounts.find((account)=>(account.password === login.password));
-                if(userRequest === passRequest){
+                if(userRequest !== undefined && userRequest === passRequest){
                     this.activeUser = userRequest;
-                    console.log(`You have successfully logged in: ${this.activeUser.name}`) 
+                    console.log(`You have successfully logged in: ${userRequest.name}`) 
                 }
                 else{ 
                     console.log("The name and password do not match.  Please try again.");
